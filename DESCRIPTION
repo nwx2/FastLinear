@@ -1,0 +1,21 @@
+Package: FastLinear
+Type: Package
+Title: Efficient linear regression function
+Version: 0.1.0
+Author: Wenxin Ni
+Maintainer: Wenxin Ni <niwenxin@umich.edu>
+Description: Implement a more efficient linear regression function using QR decomposition.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+LinkingTo: 
+    Rcpp
+Imports: 
+    Rcpp

@@ -1,0 +1,100 @@
+---
+title: "FastLinear-Usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{FastLinear-Usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+## Introduction
+The `FastLinear` package provides efficient linear regression functions using QR decomposition. This vignette demonstrates the usage of `fast_lm` and compares its performance and accuracy with the base R function `lm()`.
+```{r setup}
+library(FastLinear)
+library(bench)
+library(ggplot2)
+```
+
+## Example
+We'll simulate a dataset with 1,000 observations and 10 predictors.
+```{r}
+set.seed(123)
+n <- 10000
+p <- 10
+X <- matrix(rnorm(n * p), ncol = p)
+beta_true <- rnorm(p + 1)  
+y <- cbind(1, X) %*% beta_true + rnorm(n)
+
+```
+## Fitting models
+Using fast_lm
+```{r}
+model_fast <- fast_lm(X, y)
+summary.fastlm(model_fast)
+
+```
+Using lm()
+```{r}
+data <- data.frame(y = y, X)
+model_lm <- lm(y ~ ., data = data)
+summary(model_lm)
+
+```
+## Comparing Results
+# Correctness
+We compare the coefficients from both models using all.equal().
+```{r}
+# Fit models
+model_fast <- fast_lm(X, y)
+data <- data.frame(y = y, X)
+model_lm <- lm(y ~ ., data = data)
+
+# Extract coefficients
+coefficients_fast <- as.numeric(model_fast$coefficients)
+coefficients_lm <- coef(model_lm)
+
+# Assign names to coefficients_fast if missing
+if (is.null(names(coefficients_fast))) {
+  names(coefficients_fast) <- names(coefficients_lm)
+}
+
+# Ensure both are numeric vectors
+coefficients_fast <- as.numeric(coefficients_fast)
+coefficients_lm <- as.numeric(coefficients_lm)
+
+# Compare the coefficients
+comparison_result <- all.equal(coefficients_fast, coefficients_lm, tolerance = 1e-6)
+print(comparison_result)
+
+
+```
+Interpretation: The coefficients are equal within a reasonable tolerance, demonstrating correctness.
+
+
+# Efficiency
+Benchmarking the performance of both functions using bench::mark().
+```{r}
+benchmark_results <- bench::mark(
+  FastLinear = fast_lm(X, y),
+  lm = lm(y ~ ., data = data),
+  iterations = 100,
+  check = FALSE
+)
+
+print(benchmark_results)
+
+```
+```{r}
+autoplot(benchmark_results)
+
+```
+Interpretation: The fast_lm function is faster than lm(), demonstrating improved efficiency.
+
+
+
