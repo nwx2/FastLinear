@@ -24,7 +24,11 @@ devtools::install_github("yourusername/FastLinear")
 
 ```{r}
 # Load the package
+install.packages("FastLinear")
 library(FastLinear)
+install.packages("bench")
+library(ggplot2)
+library(bench)
 
 # Simulate data
 set.seed(123)

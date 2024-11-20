@@ -6,9 +6,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-```{r}
-devtools::load_all()
-```
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -24,11 +22,17 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+install.packages("devtools")
+install.packages("bench")
+library(devtools)
 library(FastLinear) 
 library(ggplot2)
 library(bench)
 ```
 
+```{r}
+devtools::load_all()
+```
 ## Example
 We'll simulate a dataset with 1,000 observations and 10 predictors.
 ```{r}
