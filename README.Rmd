@@ -42,7 +42,7 @@ model <- fast_lm(X, y)
 print(model$coefficients)
 
 # Summarize the model
-summary.fastlm(model)
+summary(model)
 
 ```
 ## Vignettes

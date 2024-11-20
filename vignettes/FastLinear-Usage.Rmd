@@ -6,6 +6,9 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+```{r}
+devtools::load_all()
+```
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -15,10 +18,15 @@ knitr::opts_chunk$set(
 ```
 ## Introduction
 The `FastLinear` package provides efficient linear regression functions using QR decomposition. This vignette demonstrates the usage of `fast_lm` and compares its performance and accuracy with the base R function `lm()`.
-```{r setup}
-library(FastLinear)
-library(bench)
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(FastLinear) 
 library(ggplot2)
+library(bench)
 ```
 
 ## Example
@@ -36,7 +44,7 @@ y <- cbind(1, X) %*% beta_true + rnorm(n)
 Using fast_lm
 ```{r}
 model_fast <- fast_lm(X, y)
-summary.fastlm(model_fast)
+summary(model_fast)
 
 ```
 Using lm()
@@ -80,6 +88,7 @@ Interpretation: The coefficients are equal within a reasonable tolerance, demons
 # Efficiency
 Benchmarking the performance of both functions using bench::mark().
 ```{r}
+library(bench)
 benchmark_results <- bench::mark(
   FastLinear = fast_lm(X, y),
   lm = lm(y ~ ., data = data),

@@ -12,8 +12,10 @@
 #' beta_true <- rnorm(p + 1)
 #' y <- cbind(1, X) %*% beta_true + rnorm(n)
 #' model_fast <- fast_lm(X, y)
-#' summary.fastlm(model)
-#' @export
+#' summary(model_fast)
+#'
+#'@method summary fastlm
+#'@export
 summary.fastlm <- function(object, ...) {
   cat("Coefficients:\n")
   print(object$coefficients)
