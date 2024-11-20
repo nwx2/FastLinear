@@ -3,6 +3,7 @@
 #' Provides a summary for objects of class \code{fastlm}.
 #'
 #' @param object An object of class \code{fastlm}.
+#' @param ... Additional arguments passed to or from other methods.
 #' @return Prints the summary to the console.
 #' @examples
 #' set.seed(123)
@@ -14,8 +15,8 @@
 #' model_fast <- fast_lm(X, y)
 #' summary(model_fast)
 #'
-#'@method summary fastlm
-#'@export
+#' @method summary fastlm
+#' @export
 summary.fastlm <- function(object, ...) {
   cat("Coefficients:\n")
   print(object$coefficients)

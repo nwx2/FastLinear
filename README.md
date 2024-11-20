@@ -27,7 +27,7 @@ devtools::install_github("yourusername/FastLinear")
 install.packages("FastLinear")
 library(FastLinear)
 install.packages("bench")
-library(ggplot2)
+
 library(bench)
 
 # Simulate data

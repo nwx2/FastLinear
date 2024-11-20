@@ -25,7 +25,6 @@ knitr::opts_chunk$set(
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 library(devtools)
 library(FastLinear) 
-library(ggplot2)
 library(bench)
 ```
 
@@ -100,10 +99,6 @@ benchmark_results <- bench::mark(
 )
 
 print(benchmark_results)
-
-```
-```{r}
-autoplot(benchmark_results)
 
 ```
 Interpretation: The fast_lm function is faster than lm(), demonstrating improved efficiency.

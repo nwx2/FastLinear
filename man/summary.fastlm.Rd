@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{object}{An object of class \code{fastlm}.}
+
+\item{...}{Additional arguments passed to or from other methods.}
 }
 \value{
 Prints the summary to the console.
